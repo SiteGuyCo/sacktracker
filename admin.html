@@ -12,6 +12,7 @@ body{font-family:'Roboto',sans-serif;background:#121212;color:#f0f0f0;padding:1r
 .table-container{overflow-x:auto;margin-bottom:1rem;}
 input,button{padding:0.5rem;margin-right:0.5rem;border-radius:4px;border:none;}
 button{background:#b80000;color:white;cursor:pointer;}
+.back-button{color:#f0f0f0;text-decoration:none;background:#b80000;padding:0.5rem 1rem;border-radius:4px;}
 table{width:100%;border-collapse:collapse;margin-bottom:1rem;min-width:500px;}
 th,td{border:1px solid #333;padding:0.5rem;text-align:left;}
 @media(max-width:600px){
@@ -21,6 +22,7 @@ th,td{border:1px solid #333;padding:0.5rem;text-align:left;}
 </style>
 </head>
 <body>
+<a href="/" class="back-button">Back to Dashboard</a>
 <h1>Vendor Management</h1>
 <div class="table-container">
 <table id="vendor-table">
@@ -54,7 +56,10 @@ document.getElementById('add-btn').addEventListener('click', async ()=>{
     const name=document.getElementById('name').value;
     const price=parseFloat(document.getElementById('price').value);
     const last=parseFloat(document.getElementById('last').value);
-    await fetch('/api/vendors',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,price,last,history:[last,price]})});
+    const res = await fetch('/api/vendors',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,price,last,history:[last,price]})});
+    if(res.ok){
+        alert('Vendor added successfully!');
+    }
     localStorage.setItem('vendorsUpdated', Date.now());
     document.getElementById('name').value='';
     document.getElementById('price').value='';
