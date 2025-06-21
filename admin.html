@@ -55,6 +55,7 @@ document.getElementById('add-btn').addEventListener('click', async ()=>{
     const price=parseFloat(document.getElementById('price').value);
     const last=parseFloat(document.getElementById('last').value);
     await fetch('/api/vendors',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,price,last,history:[last,price]})});
+    localStorage.setItem('vendorsUpdated', Date.now());
     document.getElementById('name').value='';
     document.getElementById('price').value='';
     document.getElementById('last').value='';
@@ -66,6 +67,7 @@ document.querySelector('#vendor-table tbody').addEventListener('click',async e=>
     if(e.target.classList.contains('delete')){
         await fetch('/api/vendors/'+id,{method:'DELETE'});
         loadVendors();
+        localStorage.setItem('vendorsUpdated', Date.now());
     }
     if(e.target.classList.contains('save')){
         const row=e.target.closest('tr');
@@ -74,6 +76,7 @@ document.querySelector('#vendor-table tbody').addEventListener('click',async e=>
         const last=parseFloat(row.querySelector('.last').value);
         await fetch('/api/vendors/'+id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,price,last})});
         loadVendors();
+        localStorage.setItem('vendorsUpdated', Date.now());
     }
 });
 

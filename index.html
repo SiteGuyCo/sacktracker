@@ -215,6 +215,12 @@ document.getElementById('toggle-average').addEventListener('click', showAverage)
 
 loadVendors();
 setInterval(loadVendors, 60000);
+
+window.addEventListener('storage', e => {
+    if(e.key === 'vendorsUpdated') {
+        loadVendors();
+    }
+});
 </script>
 </body>
 </html>
