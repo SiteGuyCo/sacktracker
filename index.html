@@ -108,15 +108,21 @@
 </main>
 <script>
 const data = { vendors: [] };
+let showingVendorId = null;
 
 async function loadVendors(){
     const res = await fetch('/api/vendors');
     data.vendors = await res.json();
     renderVendors();
+    if(showingVendorId){
+        const idx = data.vendors.findIndex(v=>v.id===showingVendorId);
+        if(idx !== -1){
+            showVendor(idx);
+            return;
+        }
+    }
     showAverage();
 }
-
-let showingVendor = null;
 const ctx = document.getElementById('priceChart').getContext('2d');
 let chart;
 
@@ -171,7 +177,7 @@ function renderChart(labels, prices, label) {
 }
 
 function showAverage() {
-    showingVendor = null;
+    showingVendorId = null;
     document.getElementById('toggle-average').style.display='none';
     const history = calcAverageHistory();
     updateMainPrice(history);
@@ -181,7 +187,7 @@ function showAverage() {
 
 function showVendor(index) {
     const vendor = data.vendors[index];
-    showingVendor = index;
+    showingVendorId = vendor.id;
     document.getElementById('toggle-average').style.display='block';
     const history = vendor.history;
     updateMainPrice(history);
@@ -205,6 +211,7 @@ function renderVendors() {
 document.getElementById('toggle-average').addEventListener('click', showAverage);
 
 loadVendors();
+setInterval(loadVendors, 60000);
 </script>
 </body>
 </html>

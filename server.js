@@ -37,9 +37,17 @@ app.put('/api/vendors/:id', (req,res)=>{
   const vendors = readVendors();
   const index = vendors.findIndex(v => v.id === req.params.id);
   if(index === -1) return res.status(404).end();
-  vendors[index] = { ...vendors[index], ...req.body };
+  const vendor = vendors[index];
+  if (req.body.name !== undefined) vendor.name = req.body.name;
+  if (req.body.price !== undefined) {
+    vendor.history.push(req.body.price);
+    if (vendor.history.length > 7) vendor.history.shift();
+    vendor.last = vendor.price;
+    vendor.price = req.body.price;
+  }
+  if (req.body.last !== undefined) vendor.last = req.body.last;
   writeVendors(vendors);
-  res.json(vendors[index]);
+  res.json(vendor);
 });
 
 app.delete('/api/vendors/:id', (req,res)=>{
