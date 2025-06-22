@@ -26,6 +26,13 @@ const DEFAULT_VENDORS = [
     price: 3.50,
     last: 3.60,
     history: [3.6, 3.55, 3.52, 3.5, 3.51, 3.52, 3.5]
+  },
+  {
+    id: '4',
+    name: 'Sample Seafood',
+    price: 2.85,
+    last: 2.90,
+    history: [2.9, 2.88, 2.86, 2.84, 2.83, 2.84, 2.85]
   }
 ];
 
