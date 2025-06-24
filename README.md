@@ -9,3 +9,5 @@ Run `npm install` and `npm start` to launch the server locally, then open `http:
 - Vendor tiles that let you switch the chart to each vendor's history
 
 Use the **Admin** button to view, insert, edit, or delete vendor information. Any changes made in the admin page are reflected immediately on the dashboard. A starter vendor called "Sample Seafood" is included so you can try editing and saving changes right away.
+
+Netlify CMS is configured in the `admin/` folder. When deployed to Netlify, visit `/admin/` and log in with Netlify Identity to edit `vendors.json`.

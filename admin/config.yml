@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main
+media_folder: "uploads"
+public_folder: "/uploads"
+collections:
+  - name: vendors
+    label: Vendors
+    files:
+      - file: vendors.json
+        name: vendor_list
+        label: Vendors
+        format: json
+        fields:
+          - label: Vendor Entries
+            name: ""
+            widget: list
+            fields:
+              - {label: ID, name: id, widget: string}
+              - {label: Name, name: name, widget: string}
+              - {label: Price, name: price, widget: number}
+              - {label: Last, name: last, widget: number}
+              - label: History
+                name: history
+                widget: list
+                field: {label: Price, name: "", widget: number}
